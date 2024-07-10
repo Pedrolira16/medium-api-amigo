@@ -1,0 +1,2 @@
+"use strict";Object.defineProperty(exports,"__esModule",{value:true});exports.default=void 0;var _express=require("express");const routes=new _express.Router;routes.get("/",(req,res)=>{return res.json({message:"Hello World!"})});var _default=exports.default=routes;
+//# sourceMappingURL=routes.js.map

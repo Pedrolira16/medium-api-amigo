@@ -1,0 +1,2 @@
+"use strict";var _app=_interopRequireDefault(require("./src/app"));function _interopRequireDefault(e){return e&&e.__esModule?e:{default:e}}const app=new _app.default;app.start();
+//# sourceMappingURL=index.js.map
