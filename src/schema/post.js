@@ -18,12 +18,11 @@ const postSchema = {
         .noUnknown()
     },
     remove:{
-        body: yup
+        params: yup
         .object({
             id: yup.number().integer().required("Id is required")
         })
         .noUnknown()
     }
 };
-
 export default postSchema;

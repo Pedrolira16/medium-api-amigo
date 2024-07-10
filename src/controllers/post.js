@@ -5,7 +5,7 @@ class PostController extends Basecontroller {
 	constructor() {
 		super();
 		this.postService = new PostService();
-		this.bindActions(['create','list']);
+		this.bindActions(['create','list','remove']);
 	}
 
 	async create(req, res) {
@@ -36,7 +36,7 @@ class PostController extends Basecontroller {
 	async remove(req,res){
 		try {
 			const response = await this.postService.remove({
-				...req.data,
+				...req.filter,
 				user_id: req.userId
 			});
 			this.successHandler(response, res);

@@ -60,8 +60,14 @@ class PostService {
             posts
         };
     }
-    async remove(post){
-
-    }
+    async remove(filter){
+        await Post.update({is_deleted: true},{
+            where: {
+                id: filter.id,
+                user_id: filter.user_id,
+                is_deleted: false
+            }
+        })
+    };
 }
 export default PostService;

@@ -14,7 +14,7 @@ class PostRoutes extends BaseRoutes {
   setup() {
     this.router.post('/', Authenticator.verifyToken,SchemaValidator.validate(PostSchemas.create) ,this.postController.create);
     this.router.get('/', Authenticator.getToken, SchemaValidator.validate(PostSchemas.list),this.postController.list);
-    this.router.delete('/', Authenticator.getToken, SchemaValidator.validate(PostSchemas.remove),this.postController.remove);
+    this.router.delete('/:id', Authenticator.getToken, SchemaValidator.validate(PostSchemas.remove),this.postController.remove);
     return this.router;
   }
 }
