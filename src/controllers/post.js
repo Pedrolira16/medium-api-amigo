@@ -5,7 +5,7 @@ class PostController extends Basecontroller {
 	constructor() {
 		super();
 		this.postService = new PostService();
-		this.bindActions(['create','list','remove']);
+		this.bindActions(['create','list',"remove", "update"]);
 	}
 
 	async create(req, res) {
@@ -40,6 +40,21 @@ class PostController extends Basecontroller {
 				user_id: req.userId
 			});
 			this.successHandler(response, res);
+		} catch (error) {
+			this.errorHandler(error, req, res);
+		}
+	};
+
+	async update(req,res){
+		try {
+			await this.postService.update({
+				changes: req.data,
+				filter: {
+					...req.filter,
+					user_id: req.userId
+				},
+			});
+			this.successHandler(true, res);
 		} catch (error) {
 			this.errorHandler(error, req, res);
 		}

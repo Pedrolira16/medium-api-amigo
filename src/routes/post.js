@@ -8,13 +8,14 @@ import PostSchemas from "../schema/post.js";
 class PostRoutes extends BaseRoutes {
   constructor() {
     super();
-    this.postController = new PostController();
+    this.postController = new PostController();;
   }
 
   setup() {
     this.router.post('/', Authenticator.verifyToken,SchemaValidator.validate(PostSchemas.create) ,this.postController.create);
     this.router.get('/', Authenticator.getToken, SchemaValidator.validate(PostSchemas.list),this.postController.list);
     this.router.delete('/:id', Authenticator.getToken, SchemaValidator.validate(PostSchemas.remove),this.postController.remove);
+    this.router.put('/:id', Authenticator.getToken, SchemaValidator.validate(PostSchemas.update),this.postController.update);
     return this.router;
   }
 }

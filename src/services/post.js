@@ -68,6 +68,15 @@ class PostService {
                 is_deleted: false
             }
         })
-    };
+    };  
+
+    update({ changes, filter }) {
+		return Post.update(changes, {
+			where: {
+				user_id: filter.user_id,
+				id: filter.id,
+			},
+		});
+	};
 }
 export default PostService;
