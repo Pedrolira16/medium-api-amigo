@@ -14,7 +14,6 @@ class PostController extends Basecontroller {
 				...req.data,
 				user_id: req.userId
 			});
-
 			this.successHandler(response, res);
 		} catch (error) {
 			this.errorHandler(error, req, res);
@@ -47,4 +46,3 @@ class PostController extends Basecontroller {
 	};
 }
 export default PostController;
-

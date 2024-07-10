@@ -14,16 +14,16 @@ class PostService {
                 [Sequelize.Op.lte]: Sequelize.literal('CURRENT_TIMESTAMP')
             }
         }
-
         const pagination = PaginationUtils.config({ page: filter.page, items_per_page: 20 });
-       
+        
         const promises = [];
-
+        
         promises.push(
             Post.findAll({
                 where: whereCondition,
                 include: [{
                     model: User,
+                    as: 'user',
                     attributes: ['id', 'name']
                 }],
                 attributes: [
@@ -35,14 +35,16 @@ class PostService {
                     'content', 
                     literal('CASE WHEN post.user_id = :userId THEN true ELSE false END as is_owner')
                 ],
+                raw : true,
+                nest: true,
                 order: [['available_at', 'DESC']],
                 replacements: { userId: filter.loggedUserId },
                 ...pagination.getQueryParams()
             })
         );
-
+        
         const isFirstPage = pagination.getPage() === 1;
-
+        
         if (isFirstPage) {
             promises.push(
                 Post.count({
@@ -50,14 +52,16 @@ class PostService {
                 })
             );
         }
-
+        
         const [posts, totalItems] = await Promise.all(promises);
-    
 
         return {
             ...pagination.mount(totalItems),
             posts
         };
+    }
+    async remove(post){
+
     }
 }
 export default PostService;
