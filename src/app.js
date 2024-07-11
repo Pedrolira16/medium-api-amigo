@@ -7,35 +7,35 @@ import env from 'dotenv';
 env.config();
 
 class App {
-  constructor() {
-    this.app = express();
+	constructor() {
+		this.app = express();
 
-    this.databaseModule = new Database();
-  }
+		this.databaseModule = new Database();
+	}
 
-  async initializeModules() {
-  return Promise.all([
-    this.databaseModule.connect()
-  ]);
-}
+	async initializeModules() {
+		return Promise.all([
+			this.databaseModule.connect()
+		]);
+	}
 
-  async setup() {
-    await this.initializeModules()
-    this.app.use(express.json());
+	async setup() {
+		await this.initializeModules()
+		this.app.use(express.json());
 
-    this.app.use(express.urlencoded({ extended: false }));
+		this.app.use(express.urlencoded({ extended: false }));
 
-    this.app.use(cors());
+		this.app.use(cors());
 
-    const routes = new Routes();
+		const routes = new Routes();
 
-    this.app.use(routes.setup());
-  }
+		this.app.use(routes.setup());
+	}
 
-  start() {
-    this.setup();
-    this.app.listen(3333);
-  }
+	start() {
+		this.setup();
+		this.app.listen(3333);
+	}
 }
 
 export default App;

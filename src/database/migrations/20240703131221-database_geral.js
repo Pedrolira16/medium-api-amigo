@@ -70,6 +70,7 @@ module.exports = {
           type: Sequelize.INTEGER,
           allowNull: false
         },
+
         available_at:{
           type: Sequelize.DATE,
           defaultValue : Sequelize.literal('CURRENT_TIMESTAMP')
@@ -85,6 +86,7 @@ module.exports = {
         updated_at: Sequelize.DATE
 
       }, { transaction: t })
+      
       await queryInterface.createTable('post_likes', {
         id: {
           allowNull: false,
@@ -137,6 +139,7 @@ module.exports = {
       await queryInterface.dropTable('users', { transaction: t });
 
       await t.commit();
+
     }
     catch (error) {
       await t.rollback();

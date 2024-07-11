@@ -1,6 +1,6 @@
 import fs from "fs";
 import Sequelize from "sequelize";
-import config from "./config"; // Changed import to correctly reference the config file
+import config from "./config"; 
 
 import Logger from "../utils/logger";
 

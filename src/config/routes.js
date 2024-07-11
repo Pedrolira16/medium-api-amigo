@@ -1,8 +1,6 @@
 import { Router } from 'express';
 import UserRoutes from '../routes/user.js';
 import PostRoutes from '../routes/post.js';
-import Authenticator from '../middlewares/auth.js';
-
 
 export default class Routes {
 	constructor() {

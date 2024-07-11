@@ -7,5 +7,4 @@ class BaseRoutes {
 		this.SchemaValidator = SchemaValidator;
 	}
 }
-
 export default BaseRoutes;

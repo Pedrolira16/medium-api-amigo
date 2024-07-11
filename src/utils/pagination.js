@@ -3,50 +3,50 @@ import { ExceptionUtils } from './exception';
 const DEFAULT_ITEMS_PER_PAGE = 20;
 
 export default class PaginationUtils {
-    static config(options = {}) {
-        this._config = Object.assign({}, options);
-    
-        if (!this._config.page) {
-            throw new ExceptionUtils('PAGINATION_ERROR');
-        }
+	static config(options = {}) {
+		this._config = Object.assign({}, options);
 
-        this._config.page = this._config.page || 1;
-        this._config.items_per_page = this._config.items_per_page || DEFAULT_ITEMS_PER_PAGE;
+		if (!this._config.page) {
+			throw new ExceptionUtils('PAGINATION_ERROR');
+		}
 
-        this._config.offset = ((this._config.page - 1) * this._config.items_per_page);
+		this._config.page = this._config.page || 1;
+		this._config.items_per_page = this._config.items_per_page || DEFAULT_ITEMS_PER_PAGE;
 
-        return this;
-    }
+		this._config.offset = ((this._config.page - 1) * this._config.items_per_page);
 
-    static getQueryParams() {
-        return {
-            limit: this.getLimit(),
-            offset: this.getOffset(),
-            subQuery: false
-        };
-    }
+		return this;
+	}
 
-    static mount(totalItems) {
-        const response = {
-            itemsPerPage: this._config.items_per_page
-        };
+	static getQueryParams() {
+		return {
+			limit: this.getLimit(),
+			offset: this.getOffset(),
+			subQuery: false
+		};
+	}
 
-        if (this._config.page === 1) {
-            response.totalPages = Math.ceil(totalItems / this._config.items_per_page);
-        }
+	static mount(totalItems) {
+		const response = {
+			itemsPerPage: this._config.items_per_page
+		};
 
-        return response;
-    }
+		if (this._config.page === 1) {
+			response.totalPages = Math.ceil(totalItems / this._config.items_per_page);
+		}
 
-    static getOffset() {
-        return this._config.offset;
-    }
+		return response;
+	}
 
-    static getPage() {
-        return this._config.page;
-    }
+	static getOffset() {
+		return this._config.offset;
+	}
 
-    static getLimit() {
-        return this._config.items_per_page;
-    }
+	static getPage() {
+		return this._config.page;
+	}
+
+	static getLimit() {
+		return this._config.items_per_page;
+	}
 }
