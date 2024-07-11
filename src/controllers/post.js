@@ -4,8 +4,16 @@ import PostService from '../services/post';
 class PostController extends Basecontroller {
 	constructor() {
 		super();
+		
 		this.postService = new PostService();
-		this.bindActions(['create','list',"remove", "update"]);
+		
+		this.bindActions([
+			"create",
+			"list",
+			"listById",
+			"remove", 
+			"update"
+		]);
 	}
 
 	async create(req, res) {
@@ -26,7 +34,18 @@ class PostController extends Basecontroller {
 				...req.filter,
 				loggedUserId: req.userId
 			});
-			
+			this.successHandler(response, res);
+		} catch (error) {
+			this.errorHandler(error, req, res);
+		}
+	};
+
+	async listById(req,res){
+		try {
+			const response = await this.postService.listById({
+				...req.filter,
+				loggedUserId: req.userId
+			});
 			this.successHandler(response, res);
 		} catch (error) {
 			this.errorHandler(error, req, res);

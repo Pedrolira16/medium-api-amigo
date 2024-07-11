@@ -1,8 +1,6 @@
 import { User } from "../models/index";
 import AuthUtils, { hashPassword } from "../utils/auth"; 
 
-
-
 class UserService {
     async create(user) {
         const transaction = await User.sequelize.transaction();
@@ -16,7 +14,8 @@ class UserService {
             await transaction.rollback();
             throw err;
         }
-    }
+    };
+
     async login(data){
     
         let user = await User.findOne({ where: { email: data.email } });
@@ -27,12 +26,13 @@ class UserService {
                 password:'fakepassword1234'
             };
         }
+
         const isValid = await AuthUtils.isPasswordValid(data.password, user.password);
     
         if (!isValid) {
             throw new Error("Email ou senha incorretos");
         }
-    
+        
         return {
             user : {
                 id: user.id,
@@ -44,4 +44,3 @@ class UserService {
     }
 }
 export default UserService;
-
