@@ -43,9 +43,9 @@ const postSchema = {
             }),
         body: yup
             .object({
-                title: yup.string().required("Title is required"),
-                summary: yup.string().required("Summary is required"),
-                content: yup.string().required("Content is required"),
+                title: yup.string(),
+                summary: yup.string(),
+                content: yup.string()
             })
             .noUnknown()
     }

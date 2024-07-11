@@ -1,4 +1,4 @@
-import { Post, User } from "../models";
+import { Post, User, PostLike } from "../models";
 import PaginationUtils from "../utils/pagination";
 import { Sequelize, literal } from 'sequelize';
 
@@ -34,6 +34,7 @@ class PostService {
                     'title',
                     'summary',
                     'content',
+                    'total_likes',
                     literal('CASE WHEN post.user_id = :userId THEN true ELSE false END as is_owner')
                 ],
                 raw: true,
@@ -87,6 +88,7 @@ class PostService {
                     'title',
                     'summary',
                     'content',
+                    'total_likes',
                     literal('CASE WHEN post.user_id = :userId THEN true ELSE false END as is_owner')
                 ],
                 raw: true,
@@ -120,4 +122,5 @@ class PostService {
         });
     };
 }
+
 export default PostService;
