@@ -7,6 +7,7 @@ const postSchema = {
                 title: yup.string().required("Title is required"),
                 summary: yup.string().required("Summary is required"),
                 content: yup.string().required("Content is required"),
+                available_at: yup.date()
             })
             .noUnknown()
     },
