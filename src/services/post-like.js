@@ -13,24 +13,25 @@ class PostLikeService {
 		});
 
 		if (hasLike) {
-			return message;
+			throw new Error(message);
 		}
 
 		const transaction = await Post.sequelize.transaction();
 
 		try {
-			await PostLike.create({
-				post_id: filter.id,
-				user_id: filter.user_id
-			}, { transaction });
-
-			await Post.increment('total_likes', {
-				where: {
-					id: filter.id
-				},
-				by: 1,
-				transaction
-			});
+			await Promise.all([
+				await PostLike.create({
+					post_id: filter.id,
+					user_id: filter.user_id
+				}, { transaction }),
+				await Post.increment('total_likes', {
+					where: {
+						id: filter.id
+					},
+					by: 1,
+					transaction
+				})
+			])
 
 			await transaction.commit();
 
@@ -42,7 +43,7 @@ class PostLikeService {
 	};
 
 	async dislike(filter) {
-		const message = 'You already disliked this post';
+		const message = 'You didnt like this post';
 		
 		const hasLike = await PostLike.findOne({
 			where: {
@@ -53,29 +54,31 @@ class PostLikeService {
 		});
 
 		if (!hasLike) {
-			return message;
+			throw new Error(message);
 		}
 
 		const transaction = await Post.sequelize.transaction();
 
 		try {
-			await PostLike.update({
-				is_deleted: true
-			}, {
-				where: {
-					post_id: filter.id,
-					user_id: filter.user_id
-				},
-				transaction
-			});
-
-			await Post.decrement('total_likes', {
-				where: {
-					id: filter.id
-				},
-				by: 1,
-				transaction
-			});
+			await Promise.all([
+				PostLike.update({
+					is_deleted: true
+				}, {
+					where: {
+						post_id: filter.id,
+						user_id: filter.user_id,
+						is_deleted: false
+					},
+					transaction
+				}),
+				Post.decrement('total_likes', {
+					where: {
+						id: filter.id
+					},
+					by: 1,
+					transaction
+				})
+			]);
 
 			await transaction.commit();
 
