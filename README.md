@@ -106,3 +106,20 @@ Authorization: Bearer seu_token_jwt
   "resumo": "Resumo da minha primeira publicação.",
   "data_publicacao": "2024-07-20T00:00:00.000Z"
 }
+```
+**Response** 
+```
+Content-Type: application/json
+
+{
+  "id": 1,
+  "usuario": "seu_usuario",
+  "titulo": "Meu Primeiro Post",
+  "texto": "Este é o conteúdo da minha primeira publicação.",
+  "resumo": "Resumo da minha primeira publicação.",
+  "total_likes": 0,
+  "data_publicacao": "2024-07-20T00:00:00.000Z",
+  "createdAt": "2024-07-12T00:00:00.000Z",
+  "updatedAt": "2024-07-12T00:00:00.000Z"
+}
+```
