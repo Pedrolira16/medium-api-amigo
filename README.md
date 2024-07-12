@@ -1,1 +1,1 @@
-<h1 style="font-size: 28px; font-weight: bold;">Medium API</h1>
+<h1  font-weight: bold;">Medium API</h1>
